@@ -1,0 +1,14 @@
+﻿<h3>Winkelmand</h3>
+@foreach (var item in Items)
+{
+	<div> 
+		<strong>@item.Product.Naam</strong> 
+		<span>@item.Aantal × @item.Product.Prijs.ToString("C")</span>
+		<span>@((item.Aantal * item.Product.Prijs).ToString("C"))</span> 
+	</div>
+}
+@code {
+	[Parameter] 
+	public List<WinkelmandItem> Items { get; set; } = new();
+	private decimal Totaal => Items.Sum(i => i.Aantal * i.Product.Prijs);
+}

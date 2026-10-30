@@ -1,0 +1,21 @@
+﻿@page "/productlijst"
+<h3>ProductLijst</h3>
+
+@foreach (var product in Producten) 
+{
+	<div class="product">
+		<img src="@product.Afbeelding" alt="@product.Naam" /> 
+		<h3>@product.Naam</h3> 
+		<p>@product.Prijs.ToString("C")</p> 
+		<p>Voorraad: @product.Voorraad</p> 
+	</div> 
+}
+
+@onclick="() => OnProductGeselecteerd.InvokeAsync(product)"
+
+@code {
+	[Parameter] 
+	public List<Product> Producten { get; set; } = new();
+	[Parameter] 
+	public EventCallback<Product> OnProductGeselecteerd { get; set; }
+}

@@ -1,0 +1,29 @@
+﻿<h3>ProductDetail</h3>
+
+<div 
+	class="product-detail"> 
+	<img src="@Product.Afbeelding" alt="@Product.Naam" /> 
+	<h2>@Product.Naam</h2> 
+	<p>@Product.Beschrijving</p> 
+	<p>Prijs: @Product.Prijs.ToString("C")</p>
+	<p>Voorraad: @Product.Voorraad</p> 
+	<button>Toevoegen aan winkelmandje</button>
+</div>
+
+@if (geselecteerdProduct is not null)
+{
+	<ProductDetail Product="@geselecteerdProduct" /> 
+} 
+else 
+{ 
+	<p>Selecteer eerst een product.</p> 
+}
+<button @onclick="() => OnToevoegen.InvokeAsync(Product)"> 
+	Toevoegen aan winkelmandje 
+</button>
+@code {
+	[Parameter] 
+	public Product Product { get; set; } = new();
+	[Parameter] 
+	public EventCallback<Product> OnToevoegen { get; set; }
+}

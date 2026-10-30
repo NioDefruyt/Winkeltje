@@ -1,0 +1,55 @@
+﻿@page "/winkel"
+@attribute [StreamRendering]
+
+<PageTitle>Winkel</PageTitle>
+
+<h1>Winkel</h1>
+
+
+
+@code {
+    private List<Product> producten = new() 
+    { 
+        new Product 
+        { 
+            Id = 1, 
+            Naam = "Honda CB125R",
+            Beschrijving = "Comfortabele draadloze muis.", 
+            Prijs = 19.95, 
+            Voorraad = 5, 
+            Afbeelding = "images/1.jpg" }, 
+            new Product 
+            { 
+            Id = 2, 
+            Naam = "Yamaha MT-125", 
+            Beschrijving = "Mechanisch toetsenbord.", 
+            Prijs = 49.95, 
+            Voorraad = 3, 
+            Afbeelding = "images/2.jpg" }, 
+            new Product 
+            { 
+            Id = 3, 
+            Naam = "Monitor", 
+            Beschrijving = "24 inch Full HD-monitor.", 
+            Prijs = 199.00, 
+            Voorraad = 2, 
+            Afbeelding = "images/3.jpg"
+            } 
+         }; 
+         private Product? geselecteerdProduct; 
+         private List<WinkelmandItem> winkelmand = new();
+         private void VoegToe(Product product)
+         {
+             if (product.Voorraad <= 0) 
+             return; 
+
+
+             var item = winkelmand.FirstOrDefault(i => i.Product.Id == product.Id); 
+             if (item is null)
+             {
+                 winkelmand.Add(new WinkelmandItem { Product = product, Aantal = 1 });
+             }
+             else { item.Aantal++; }
+             product.Voorraad--;
+         }
+}
